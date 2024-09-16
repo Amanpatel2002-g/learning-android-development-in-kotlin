@@ -80,7 +80,7 @@ fun UnitConverter(){
     fun getConvertedValue(){
         var inputValueAsDouble = inputvalue.toDoubleOrNull() ?:0.0
         var result = (inputValueAsDouble*inputConversionFactor*outputConversionFactor)
-        outputValue = "%.5f".format(result).toString()
+        outputValue = "%.5f".format(result).toString()+ outputUnit
     }
 
 
