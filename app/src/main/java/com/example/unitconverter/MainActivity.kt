@@ -39,10 +39,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.VerticalAlignmentLine
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity() {
@@ -72,15 +77,23 @@ fun UnitConverter(){
     var outputUnit by remember { mutableStateOf("Meters") }
     var iExpanded by remember { mutableStateOf(false) }
     var oExpanded by remember { mutableStateOf(false) }
-    var inputConversionFactor by remember { mutableStateOf(1.0) }
-    var outputConversionFactor by remember { mutableStateOf(0.01) }
+    var outputConversionFactor by remember { mutableStateOf(1.0) }
+    var inputConversionFactor by remember { mutableStateOf(0.01) }
 
-
+    val custumTextStyle = TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontSize = 40.sp,
+        color = Color.White,
+        fontWeight = FontWeight.Bold
+    )
 
     fun getConvertedValue(){
         var inputValueAsDouble = inputvalue.toDoubleOrNull() ?:0.0
         var result = (inputValueAsDouble*inputConversionFactor*outputConversionFactor)
-        outputValue = "%.5f".format(result).toString()+ outputUnit
+        println(inputValueAsDouble)
+//        println("OutputConversionFactor: "+outputConversionFactor)
+//        println("InputConversionFactor: "+inputConversionFactor)
+        outputValue = "%.3f".format(result).toString()+ " "+ outputUnit
     }
 
 
@@ -89,7 +102,7 @@ fun UnitConverter(){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Unit Convertor")
+        Text("Unit Convertor", style = custumTextStyle)
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(value = inputvalue, onValueChange = {
             inputvalue = it
@@ -188,7 +201,8 @@ fun UnitConverter(){
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Result: ${outputValue}")
+        Text("Result: ${outputValue}",
+            style = MaterialTheme.typography.headlineSmall)
 
     }
 }
